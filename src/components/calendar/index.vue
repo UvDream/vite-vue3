@@ -2,7 +2,7 @@
  * @Author: wangzhongjie
  * @Date: 2021-07-02 13:52:54
  * @LastEditors: wangzhongjie
- * @LastEditTime: 2021-07-09 14:22:12
+ * @LastEditTime: 2021-07-09 14:33:51
  * @Description: 日历
  * @Email: UvDream@163.com
 -->
@@ -21,7 +21,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
-import Calendar, { CalendarList } from "./index";
+import Calendar, { CalendarList } from "./calendar";
 import CalendarDay from "./calendar-day.vue";
 import CalendarWeek from "./calendar-week.vue";
 import ToolBars from "./tool-bars.vue";
@@ -54,7 +54,6 @@ export default defineComponent({
     daysList.value = calendar.getCalendarList(nowMonth.value, nowYear.value);
     onMounted(() => {
       calcWeekList();
-      console.log(new Calendar({ FirstDayOfWeek: 7 }).getCalendarList(9, 2021));
     });
     // 处理星期方法
     function calcWeekList() {
@@ -69,7 +68,7 @@ export default defineComponent({
     // 跳转至今天
     function toNowDay() {
       nowMonth.value = new Date().getMonth();
-      nowYear.value = new Date().getMonth();
+      nowYear.value = new Date().getFullYear();
       daysList.value = calendar.getCalendarList(
         new Date().getMonth() + 1,
         new Date().getFullYear()
