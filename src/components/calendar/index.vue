@@ -2,13 +2,18 @@
  * @Author: wangzhongjie
  * @Date: 2021-07-02 13:52:54
  * @LastEditors: wangzhongjie
- * @LastEditTime: 2021-07-09 11:39:17
+ * @LastEditTime: 2021-07-09 14:22:12
  * @Description: 日历
  * @Email: UvDream@163.com
 -->
 <template>
   <div class="k-calendar">
-    <ToolBars />
+    <ToolBars
+      :year="nowYear"
+      :month="nowMonth"
+      @toNowDay="toNowDay"
+      @jumpMonth="jumpMonth"
+    />
     <CalendarWeek :weekList="weekList" />
     <CalendarDay :daysList="daysList" />
   </div>
@@ -25,7 +30,7 @@ export default defineComponent({
   props: {
     FirstDayOfWeek: {
       type: Number,
-      default: 1,
+      default: 7,
     },
   },
   setup(props) {
@@ -48,10 +53,11 @@ export default defineComponent({
     nowYear.value = new Date().getFullYear();
     daysList.value = calendar.getCalendarList(nowMonth.value, nowYear.value);
     onMounted(() => {
-      clacWeekList();
+      calcWeekList();
+      console.log(new Calendar({ FirstDayOfWeek: 7 }).getCalendarList(9, 2021));
     });
     // 处理星期方法
-    function clacWeekList() {
+    function calcWeekList() {
       weekArr.forEach((element, index) => {
         props.FirstDayOfWeek - 1 > index
           ? endWeekArr.value.push(element)
@@ -60,7 +66,28 @@ export default defineComponent({
       weekList.value = startWeekArr.value;
       weekList.value = weekList.value.concat(endWeekArr.value);
     }
-    return { daysList, weekList };
+    // 跳转至今天
+    function toNowDay() {
+      nowMonth.value = new Date().getMonth();
+      nowYear.value = new Date().getMonth();
+      daysList.value = calendar.getCalendarList(
+        new Date().getMonth() + 1,
+        new Date().getFullYear()
+      );
+    }
+    function jumpMonth(item: String) {
+      item === "prev" ? nowMonth.value-- : nowMonth.value++;
+      if (nowMonth.value === 13) {
+        nowYear.value++;
+        nowMonth.value = 1;
+      }
+      if (nowMonth.value === 0) {
+        nowYear.value--;
+        nowMonth.value = 12;
+      }
+      daysList.value = calendar.getCalendarList(nowMonth.value, nowYear.value);
+    }
+    return { daysList, weekList, toNowDay, jumpMonth, nowYear, nowMonth };
   },
   components: { CalendarDay, CalendarWeek, ToolBars },
 });

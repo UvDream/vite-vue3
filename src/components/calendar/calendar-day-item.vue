@@ -2,7 +2,7 @@
  * @Author: wangzhongjie
  * @Date: 2021-07-09 10:30:59
  * @LastEditors: wangzhongjie
- * @LastEditTime: 2021-07-09 11:14:25
+ * @LastEditTime: 2021-07-09 13:47:18
  * @Description: 日历的天
  * @Email: UvDream@163.com
 -->
@@ -15,7 +15,7 @@
       >
         {{ data.day }}
       </section>
-      <section class="k-calendar__body-item-day-bottom">{{ data.day }}</section>
+      <!-- <section class="k-calendar__body-item-day-bottom">{{ data.day }}</section> -->
     </div>
   </div>
 </template>

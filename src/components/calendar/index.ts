@@ -2,7 +2,7 @@
  * @Author: wangzhongjie
  * @Date: 2021-07-02 13:53:13
  * @LastEditors: wangzhongjie
- * @LastEditTime: 2021-07-09 11:14:48
+ * @LastEditTime: 2021-07-09 14:19:45
  * @Description:日历类
  * @Email: UvDream@163.com
  */
@@ -36,10 +36,10 @@ class Calendar {
     getPrevDaysList(month: number, year: number): CalendarList {
         const startIndex = this.weekStartIndex(month, year);
         let RemainWeek = startIndex - this.defaultOptions.FirstDayOfWeek
-        if (this.defaultOptions.FirstDayOfWeek > startIndex) {
+        if (this.defaultOptions.FirstDayOfWeek >= startIndex) {
             RemainWeek = RemainWeek + 7
         }
-        const prevStartDay = this.getMonthLastDate(year, month - 1) - RemainWeek
+        const prevStartDay = this.getMonthLastDate(month - 1, year) - RemainWeek
         const startToArray = new Array(RemainWeek).fill("").map((item, index) => {
             return {
                 day: prevStartDay + index,
@@ -54,12 +54,17 @@ class Calendar {
     }
     //获取当前月份的day list
     getNowDaysList(month: number, year: number): CalendarList {
-        let days = this.getMonthLastDate(year, month)
+        let days = this.getMonthLastDate(month, year)
         const nowDays = new Array(days).fill("").map((item, index) => {
             item = index + 1;
+            let current = false
+            const date = new Date()
+            if (item === date.getDate() && month === date.getMonth() + 1) {
+                current = true
+            }
             return {
                 day: item,
-                current: item == new Date().getDate(),
+                current: current,
                 type: 'now',
                 selected: false,
                 disabled: false
@@ -75,6 +80,7 @@ class Calendar {
         if (endDayWeek >= this.defaultOptions.FirstDayOfWeek) {
             RemainWeek = RemainWeek + 7
         }
+
         const lastDays = new Array(RemainWeek).fill("").map((item, index) => {
             item = index + 1;
             return {
@@ -101,8 +107,10 @@ class Calendar {
     // 获取当前月份最后一天星期
     weekEndIndex(month: number, year: number) {
         const day = this.getMonthLastDate(month, year)
+
         month = month < 10 ? 0 + month : month;
         const time = year + "-" + month + "-" + day;
+
         return new Date(time).getDay()
     }
 }
