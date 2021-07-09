@@ -2,7 +2,7 @@
  * @Author: wangzhongjie
  * @Date: 2021-07-02 13:53:13
  * @LastEditors: wangzhongjie
- * @LastEditTime: 2021-07-09 14:19:45
+ * @LastEditTime: 2021-07-09 16:18:36
  * @Description:日历类
  * @Email: UvDream@163.com
  */
@@ -12,11 +12,16 @@ export interface CalendarItem {
     type: string,
     selected: boolean,
     disabled: boolean
+    lunarDay: String
+    lunarDayNumber: number,
+    lunarMonth: string,
+    lunarMonthNumber: number,
 }
 
 interface CalendarOptions {
     FirstDayOfWeek: number
 }
+import CalendarConversion from "./index"
 export type CalendarList = Array<CalendarItem>
 class Calendar {
     private defaultOptions: CalendarOptions = {
@@ -40,13 +45,19 @@ class Calendar {
             RemainWeek = RemainWeek + 7
         }
         const prevStartDay = this.getMonthLastDate(month - 1, year) - RemainWeek
-        const startToArray = new Array(RemainWeek).fill("").map((item, index) => {
+        const startToArray = new Array(RemainWeek).fill("").map((element, index) => {
+
+            let item = prevStartDay + index
             return {
-                day: prevStartDay + index,
+                day: item,
                 type: 'prev',
                 current: false,
                 selected: false,
-                disabled: false
+                disabled: false,
+                lunarDay: this.getLunarDay(year, month, item),
+                lunarDayNumber: this.getLunarNumberDay(year, month, item),
+                lunarMonth: this.getLunarMonth(year, month, item),
+                lunarMonthNumber: this.getLunarNumberMonth(year, month, item)
             };
         });
 
@@ -67,7 +78,11 @@ class Calendar {
                 current: current,
                 type: 'now',
                 selected: false,
-                disabled: false
+                disabled: false,
+                lunarDay: this.getLunarDay(year, month, item),
+                lunarDayNumber: this.getLunarNumberDay(year, month, item),
+                lunarMonth: this.getLunarMonth(year, month, item),
+                lunarMonthNumber: this.getLunarNumberMonth(year, month, item)
             };
         });
         return nowDays
@@ -88,7 +103,11 @@ class Calendar {
                 type: 'prev',
                 current: false,
                 selected: false,
-                disabled: false
+                disabled: false,
+                lunarDay: this.getLunarDay(year, month + 1, item),
+                lunarDayNumber: this.getLunarNumberDay(year, month + 1, item),
+                lunarMonth: this.getLunarMonth(year, month + 1, item),
+                lunarMonthNumber: this.getLunarNumberMonth(year, month + 1, item)
             };
         });
         return lastDays;
@@ -112,6 +131,26 @@ class Calendar {
         const time = year + "-" + month + "-" + day;
 
         return new Date(time).getDay()
+    }
+    //获取农历日期日
+    getLunarDay(year: number, month: number, day: number) {
+        let calendarConversion = new CalendarConversion()
+        return calendarConversion.lunar(year, month, day).lunarDay
+    }
+    //获取农历日期日数字
+    getLunarNumberDay(year: number, month: number, day: number) {
+        let calendarConversion = new CalendarConversion()
+        return calendarConversion.lunar(year, month, day).lunarDayNumber
+    }
+    //获取农历日期月
+    getLunarMonth(year: number, month: number, day: number) {
+        let calendarConversion = new CalendarConversion()
+        return calendarConversion.lunar(year, month, day).lunarMonth
+    }
+    //获取弄里日期月数字
+    getLunarNumberMonth(year: number, month: number, day: number) {
+        let calendarConversion = new CalendarConversion()
+        return calendarConversion.lunar(year, month, day).lunarMonthNumber
     }
 }
 export default Calendar;

@@ -2,7 +2,7 @@
  * @Author: wangzhongjie
  * @Date: 2021-07-02 13:52:54
  * @LastEditors: wangzhongjie
- * @LastEditTime: 2021-07-09 14:33:51
+ * @LastEditTime: 2021-07-09 16:20:51
  * @Description: 日历
  * @Email: UvDream@163.com
 -->
@@ -25,6 +25,7 @@ import Calendar, { CalendarList } from "./calendar";
 import CalendarDay from "./calendar-day.vue";
 import CalendarWeek from "./calendar-week.vue";
 import ToolBars from "./tool-bars.vue";
+import CalendarConversion from "./index";
 import "./index.scss";
 export default defineComponent({
   props: {
@@ -54,6 +55,7 @@ export default defineComponent({
     daysList.value = calendar.getCalendarList(nowMonth.value, nowYear.value);
     onMounted(() => {
       calcWeekList();
+      console.log(new CalendarConversion().lunar(2021, 7, 9));
     });
     // 处理星期方法
     function calcWeekList() {
@@ -67,12 +69,9 @@ export default defineComponent({
     }
     // 跳转至今天
     function toNowDay() {
-      nowMonth.value = new Date().getMonth();
+      nowMonth.value = new Date().getMonth() + 1;
       nowYear.value = new Date().getFullYear();
-      daysList.value = calendar.getCalendarList(
-        new Date().getMonth() + 1,
-        new Date().getFullYear()
-      );
+      daysList.value = calendar.getCalendarList(nowMonth.value, nowYear.value);
     }
     function jumpMonth(item: String) {
       item === "prev" ? nowMonth.value-- : nowMonth.value++;
