@@ -2,7 +2,7 @@
  * @Author: wangzhongjie
  * @Date: 2021-07-02 13:53:13
  * @LastEditors: wangzhongjie
- * @LastEditTime: 2021-07-09 16:18:36
+ * @LastEditTime: 2021-07-09 16:25:45
  * @Description:日历类
  * @Email: UvDream@163.com
  */
@@ -126,28 +126,50 @@ class Calendar {
     // 获取当前月份最后一天星期
     weekEndIndex(month: number, year: number) {
         const day = this.getMonthLastDate(month, year)
-
         month = month < 10 ? 0 + month : month;
         const time = year + "-" + month + "-" + day;
-
         return new Date(time).getDay()
     }
-    //获取农历日期日
+    /**
+     * 获取农历日期日
+     * @param year 年
+     * @param month 月
+     * @param day 日
+     * @returns day
+     */
     getLunarDay(year: number, month: number, day: number) {
         let calendarConversion = new CalendarConversion()
         return calendarConversion.lunar(year, month, day).lunarDay
     }
-    //获取农历日期日数字
+    /**
+     * 获取农历日期日数字
+     * @param year 年
+     * @param month 月
+     * @param day 日
+     * @returns day
+     */
     getLunarNumberDay(year: number, month: number, day: number) {
         let calendarConversion = new CalendarConversion()
         return calendarConversion.lunar(year, month, day).lunarDayNumber
     }
-    //获取农历日期月
+    /**
+     * 获取农历日期月
+     * @param year 年
+     * @param month 月
+     * @param day 日
+     * @returns month
+     */
     getLunarMonth(year: number, month: number, day: number) {
         let calendarConversion = new CalendarConversion()
         return calendarConversion.lunar(year, month, day).lunarMonth
     }
-    //获取弄里日期月数字
+    /**
+     * 获取农历日期月数字
+     * @param year 年
+     * @param month 月
+     * @param day 日
+     * @returns month
+     */
     getLunarNumberMonth(year: number, month: number, day: number) {
         let calendarConversion = new CalendarConversion()
         return calendarConversion.lunar(year, month, day).lunarMonthNumber

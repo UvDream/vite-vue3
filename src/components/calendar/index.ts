@@ -2,7 +2,7 @@
  * @Author: wangzhongjie
  * @Date: 2021-07-09 14:35:58
  * @LastEditors: wangzhongjie
- * @LastEditTime: 2021-07-09 15:51:38
+ * @LastEditTime: 2021-07-09 16:28:29
  * @Description:
  * @Email: UvDream@163.com
  */
@@ -168,6 +168,7 @@ class CalendarConversion {
         '1-1': { title: '春节' },
         '1-15': { title: '元宵节' },
         '5-5': { title: '端午节' },
+        '7-7': { title: '七夕节' },
         '8-15': { title: '中秋节' },
         '9-9': { title: '重阳节' },
     }
