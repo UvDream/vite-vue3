@@ -2,7 +2,7 @@
  * @Author: wangzhongjie
  * @Date: 2021-07-02 13:53:13
  * @LastEditors: wangzhongjie
- * @LastEditTime: 2021-07-02 17:05:24
+ * @LastEditTime: 2021-07-09 11:14:48
  * @Description:日历类
  * @Email: UvDream@163.com
  */
@@ -13,10 +13,11 @@ export interface CalendarItem {
     selected: boolean,
     disabled: boolean
 }
+
 interface CalendarOptions {
     FirstDayOfWeek: number
 }
-type CalendarList = Array<CalendarItem>
+export type CalendarList = Array<CalendarItem>
 class Calendar {
     private defaultOptions: CalendarOptions = {
         FirstDayOfWeek: 1
@@ -78,7 +79,7 @@ class Calendar {
             item = index + 1;
             return {
                 day: item,
-                type: 'now',
+                type: 'prev',
                 current: false,
                 selected: false,
                 disabled: false

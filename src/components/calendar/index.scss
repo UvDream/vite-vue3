@@ -1,0 +1,104 @@
+.k-calendar {
+    width : 800px;
+    height: 400px;
+
+    &__body {
+        display              : grid;
+        height               : 100%;
+        grid-template-columns: repeat(7, 1fr);
+        grid-template-rows   : auto auto;
+        grid-column-gap      : 0px;
+        grid-row-gap         : 0px;
+        border-bottom        : 1px solid #ccc;
+        border-right         : 1px solid #ccc;
+
+        &-item {
+            width : 100%;
+            height: 100%;
+
+            &-day {
+                width          : 100%;
+                height         : 100%;
+                border-top     : 1px solid #ccc;
+                border-left    : 1px solid #ccc;
+                text-align     : center;
+                display        : flex;
+                align-items    : center;
+                justify-content: center;
+
+                &-top {
+                    width        : 25px;
+                    height       : 25px;
+                    border-radius: 100%;
+                    text-align   : center;
+                    line-height  : 25px;
+                }
+
+                &-top,
+                &-bottom {
+                    font-size: 14px;
+                }
+
+                .current-day {
+                    border          : 1px solid red;
+                    background-color: red;
+                    color           : #fff;
+                }
+
+                .not-current-month {
+                    color: #ccc;
+                }
+            }
+        }
+    }
+
+    &__week {
+        display              : grid;
+        grid-template-columns: repeat(7, 1fr);
+        height               : 50px;
+        line-height          : 50px;
+        text-align           : center;
+        border-top           : 1px solid #ccc;
+        border-left          : 1px solid #ccc;
+
+        &>div {
+            border-right: 1px solid #ccc;
+            font-size   : 14px;
+
+        }
+    }
+
+    &__tool {
+        width          : 100%;
+        height         : 50px;
+        display        : flex;
+        justify-content: space-between;
+
+        &-left,
+        &-right {
+            width          : 100px;
+            display        : flex;
+            justify-content: center;
+            align-items    : center;
+            cursor         : pointer;
+        }
+
+        &-center {
+            display        : flex;
+            align-items    : center;
+            justify-content: space-around;
+
+            &-bar {
+                width      : 40px;
+                text-align : center;
+                cursor     : pointer;
+                line-height: 50px;
+            }
+
+            &-center {
+                flex: 1;
+            }
+        }
+    }
+
+}

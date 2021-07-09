@@ -2,7 +2,7 @@
  * @Author: wangzhongjie
  * @Date: 2021-07-02 16:14:02
  * @LastEditors: wangzhongjie
- * @LastEditTime: 2021-07-02 17:02:48
+ * @LastEditTime: 2021-07-09 10:54:17
  * @Description: 日历整体
  * @Email: UvDream@163.com
 -->
@@ -13,7 +13,7 @@
       :key="index"
       class="k-calendar__body-item"
     >
-      {{ item.day }}
+      <CalendarDayItem :data="item" />
     </div>
   </div>
 </template>
@@ -21,6 +21,7 @@
 <script lang="ts">
 import { defineComponent, toRefs, PropType } from "vue";
 import { CalendarItem } from "./index";
+import CalendarDayItem from "./calendar-day-item.vue";
 export default defineComponent({
   props: {
     daysList: {
@@ -32,22 +33,6 @@ export default defineComponent({
     const { daysList } = toRefs(props);
     return { daysList };
   },
-  components: {},
+  components: { CalendarDayItem },
 });
 </script>
-
-<style scoped lang="scss">
-.k-calendar__body {
-  display: grid;
-  height: 100%;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: auto auto;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-  &-item {
-    display: inline-grid;
-    grid-template-columns: repeat(7, 1fr);
-    outline: 1px solid orange;
-  }
-}
-</style>
